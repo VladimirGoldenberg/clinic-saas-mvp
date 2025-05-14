@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: clinic-saas-mvp
+    env: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "gunicorn app.app:create_app()"
+    envVars:
+      - key: FLASK_ENV
+        value: production
+      - key: PORT
+        value: 10000
+    plan: free
