@@ -1,0 +1,51 @@
+<!-- templates/health/add_functionality.html -->
+{% extends "base.html" %}
+{% block content %}
+<div class="max-w-2xl mx-auto mt-10 p-6 bg-white rounded-2xl shadow-md">
+  <h2 class="text-2xl font-semibold mb-4 text-gray-800">Add Functionality</h2>
+  <form method="POST" class="space-y-4">
+    <input 
+      type="text" 
+      name="name" 
+      placeholder="Functionality Name" 
+      required 
+      class="w-full p-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+    >
+
+    <select 
+      name="niche_id" 
+      required 
+      class="w-full p-3 border border-gray-300 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+    >
+      {% for niche in niches %}
+        <option value="{{ niche.id }}">{{ niche.name }}</option>
+      {% endfor %}
+    </select>
+
+    <button 
+      type="submit" 
+      class="w-full bg-blue-600 text-white py-2 px-4 rounded-xl hover:bg-blue-700 transition"
+    >
+      Add
+    </button>
+  </form>
+</div>
+
+<div class="max-w-2xl mx-auto mt-8 p-6 bg-white rounded-2xl shadow-md">
+  <h3 class="text-xl font-semibold mb-3 text-gray-800">Existing Functionalities</h3>
+  <ul class="list-disc pl-5 text-gray-700">
+    {% for functionality in functionalities %}
+      <li>{{ functionality.name }}</li>
+    {% endfor %}
+  </ul>
+</div>
+
+<div class="max-w-2xl mx-auto mt-6 text-center">
+  <a 
+    href="{{ url_for('routes.dashboard', niche=niche) }}" 
+    class="inline-block mt-4 text-blue-600 hover:underline"
+  >
+    ← Back to Dashboard
+  </a>
+</div>
+{% endblock %}

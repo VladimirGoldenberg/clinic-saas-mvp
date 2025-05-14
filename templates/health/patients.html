@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="max-w-3xl mx-auto mt-10 bg-white rounded-2xl shadow-md p-6">
+  <h2 class="text-2xl font-semibold mb-4 text-gray-800 text-center">All Patients</h2>
+  <ul class="space-y-3">
+    {% for patient in patients %}
+      <li class="border-b pb-2">
+        <strong>{{ patient.full_name }}</strong><br>
+        📞 {{ patient.phone }}<br>
+        ✉️ {{ patient.email }}<br>
+        📝 {{ patient.notes or "No notes" }}
+      </li>
+    {% else %}
+      <li>No patients found.</li>
+    {% endfor %}
+  </ul>
+</div>
+<div class="mt-6 text-center">
+  <a href="{{ url_for('routes.dashboard', niche=niche) }}"
+     class="text-blue-600 hover:underline">
+    ← Back to Dashboard
+  </a>
+</div>
+{% endblock %}
+
