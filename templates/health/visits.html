@@ -6,7 +6,8 @@
     All Scheduled Visits
   </h2>
 
-  <table class="min-w-full border text-center text-sm">
+  <div class="overflow-x-auto">
+    <table class="min-w-full border text-center text-sm">
     <thead class="bg-gray-100">
       <tr>
         <th class="py-2 px-4 border">Date</th>
@@ -28,6 +29,7 @@
       {% endfor %}
     </tbody>
   </table>
+  </div>
     <div class="mt-6 text-center">
     <a href="{{ url_for('routes.dashboard', niche=niche) }}"
        class="text-blue-600 hover:underline">
