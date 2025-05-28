@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="max-w-md mx-auto mt-20 p-6 bg-white rounded-2xl shadow-md text-center">
+  <h2 class="text-2xl font-semibold text-gray-800 mb-4">Are you sure you want to log out?</h2>
+  <form method="POST" class="space-y-4">
+    <button type="submit"
+            class="w-full bg-red-600 text-white py-2 px-4 rounded-xl hover:bg-red-700 transition">
+      Yes, Logout
+    </button>
+ <a href="{{ url_for('routes.dashboard', niche=niche) }}" class="text-blue-600 hover:underline">
+  ← Back to Dashboard
+</a>
+
+  </form>
+</div>
+{% endblock %}

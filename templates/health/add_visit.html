@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="max-w-xl mx-auto mt-10 p-6 bg-white rounded-2xl shadow-md">
+  <h2 class="text-2xl font-semibold text-center text-gray-800 mb-4">Schedule Visit</h2>
+  <form method="POST" class="space-y-4">
+    <div>
+      <label for="patient_id" class="block mb-1 font-medium text-gray-700">Select Patient</label>
+      <select name="patient_id" id="patient_id" required
+              class="w-full p-3 border border-gray-300 rounded-xl">
+        {% for patient in patients %}
+          <option value="{{ patient.id }}">{{ patient.full_name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div>
+      <label for="date" class="block mb-1 font-medium text-gray-700">Date</label>
+      <input type="date" name="date" required
+             class="w-full p-3 border border-gray-300 rounded-xl">
+    </div>
+    <div>
+      <label for="time" class="block mb-1 font-medium text-gray-700">Time</label>
+      <input type="time" name="time" required
+             class="w-full p-3 border border-gray-300 rounded-xl">
+    </div>
+    <div>
+      <label for="reason" class="block mb-1 font-medium text-gray-700">Reason</label>
+      <input type="text" name="reason" placeholder="e.g. Consultation"
+             class="w-full p-3 border border-gray-300 rounded-xl">
+    </div>
+    <button type="submit"
+            class="w-full bg-cyan-600 text-white py-2 px-4 rounded-xl hover:bg-cyan-700 transition">
+      Schedule Visit
+    </button>
+  </form>
+</div>
+{% endblock %}

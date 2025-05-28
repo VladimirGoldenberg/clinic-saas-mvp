@@ -1,0 +1,25 @@
+<lesson>
+    <storyboard title="Medication Instructions" type="command sequencer">
+        <ce>
+            <stringProp name="text">Take 1 tablet of Aspirin with water after meals.</stringProp>
+        </ce>
+        <ce>
+            <stringProp name="text">Do not exceed 4 tablets in 24 hours.</stringProp>
+        </ce>
+        <ce>
+            <stringProp name="text">If you experience nausea, stop using the medication and contact your physician.</stringProp>
+        </ce>
+        <ce>
+            <stringProp name="text">Store the medication in a cool, dry place, away from direct sunlight.</stringProp>
+        </ce>
+    </storyboard>
+
+    <storyboard title="Allergy Warnings" type="command sequencer">
+        <ce>
+            <stringProp name="text">Do not take this medication if you are allergic to NSAIDs.</stringProp>
+        </ce>
+        <ce>
+            <stringProp name="text">Check with your doctor before taking if you have asthma or liver issues.</stringProp>
+        </ce>
+    </storyboard>
+</lesson>

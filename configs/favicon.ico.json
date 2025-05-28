@@ -1,0 +1,11 @@
+{
+  "theme": "default",
+  "role": "admin",
+  "lang": "en",
+  "enabled_features": [
+    "change_password",
+    "add_organization",
+    "add_niche",
+    "add_functionality"
+  ]
+}

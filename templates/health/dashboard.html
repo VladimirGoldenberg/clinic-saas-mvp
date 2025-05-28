@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="max-w-xl mx-auto mt-10 p-6 bg-white rounded-2xl shadow-md">
+  <h2 class="text-2xl font-semibold text-center text-gray-800 mb-2">
+    Welcome to your {{ niche|capitalize }} Dashboard
+  </h2>
+  <p class="text-center text-gray-600 mb-4">Email: {{ email }}</p>
+  <hr class="my-4">
+
+  <div class="space-y-3">
+
+    <!-- 1. View Scheduled Visits -->
+    <a href="/{{ niche }}/visits"
+       class="block w-full bg-yellow-500 text-white py-2 px-4 rounded-xl text-center hover:bg-yellow-600 transition">
+      View Scheduled Visits
+    </a>
+
+    <!-- 2. Schedule Visit -->
+    <a href="/{{ niche }}/schedule_visit"
+       class="block w-full bg-cyan-600 text-white py-2 px-4 rounded-xl text-center hover:bg-cyan-700 transition">
+      Schedule Visit
+    </a>
+
+    <!-- 3. Manage Patients -->
+    <a href="/{{ niche }}/patients"
+       class="block w-full bg-pink-600 text-white py-2 px-4 rounded-xl text-center hover:bg-pink-700 transition">
+      Manage Patients
+    </a>
+
+    <!-- 4. Optional future feature (ChatBot) -->
+    {% if "ChatBot" in features %}
+    <a href="/{{ niche }}/chatbot"
+       class="block w-full bg-indigo-600 text-white py-2 px-4 rounded-xl text-center hover:bg-indigo-700 transition">
+      ChatBot
+    </a>
+    {% endif %}
+
+    <!-- 5. Change Password -->
+    <a href="/{{ niche }}/change_password"
+       class="block w-full bg-blue-600 text-white py-2 px-4 rounded-xl text-center hover:bg-blue-700 transition">
+      Change Password
+    </a>
+
+    <!-- 6. Logout -->
+    <a href="/{{ niche }}/logout"
+       class="block w-full bg-red-600 text-white py-2 px-4 rounded-xl text-center hover:bg-red-700 transition">
+      Logout
+    </a>
+
+  </div>
+  
+</div>
+{% endblock %}

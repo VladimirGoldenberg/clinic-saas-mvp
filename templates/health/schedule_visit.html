@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="max-w-xl mx-auto mt-10 p-6 bg-white rounded-2xl shadow-md">
+  <h2 class="text-2xl font-semibold text-center text-gray-800 mb-6">
+    Schedule Visit
+  </h2>
+
+  <div class="mb-4">
+    <label for="date" class="block text-gray-700 mb-2">Select Date</label>
+    <input type="date" id="date" name="date" class="w-full px-3 py-2 border rounded-xl">
+  </div>
+
+  <div id="slots-container" class="grid grid-cols-2 gap-3 mt-6">
+    <!-- Сюда загрузятся слоты -->
+  </div>
+
+  <div class="text-center mt-6">
+    <button id="schedule-btn"
+            class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-xl"
+            onclick="scheduleVisit()"
+            disabled>
+      Schedule
+    </button>
+  </div>
+  <div class="mt-6 text-center">
+    <a href="{{ url_for('routes.dashboard', niche=niche) }}"
+      class="text-blue-600 hover:underline">
+      ← Back to Dashboard
+    </a>
+</div>
+</div>
+
+<script>
+const allSlots = [
+  "09:00", "09:30", "10:00", "10:30", "11:00", "11:30",
+  "12:00", "12:30", "13:00", "13:30", "14:00", "14:30",
+  "15:00", "15:30", "16:00", "16:30"
+];
+
+let selectedSlot = null;
+
+async function loadSlots() {
+  const date = document.getElementById("date").value;
+  const container = document.getElementById("slots-container");
+  const scheduleBtn = document.getElementById("schedule-btn");
+  selectedSlot = null;
+  scheduleBtn.disabled = true;
+
+  container.innerHTML = "";
+
+  if (!date) return;
+
+  const response = await fetch(`/get_booked_slots?date=${date}`);
+  const booked = await response.json();
+
+  allSlots.forEach(slot => {
+    const btn = document.createElement("button");
+    btn.textContent = booked.includes(slot) ? `${slot} (booked)` : slot;
+    btn.disabled = booked.includes(slot);
+    btn.className = booked.includes(slot)
+      ? "bg-gray-300 text-gray-500 py-2 px-4 rounded-xl cursor-not-allowed"
+      : "bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-xl";
+
+    if (!booked.includes(slot)) {
+      btn.onclick = () => {
+        selectedSlot = slot;
+        scheduleBtn.disabled = false;
+
+        // визуальное выделение
+        Array.from(container.children).forEach(b => {
+          b.classList.remove("ring-2", "ring-offset-2", "ring-blue-500");
+        });
+        btn.classList.add("ring-2", "ring-offset-2", "ring-blue-500");
+      };
+    }
+
+    container.appendChild(btn);
+  });
+}
+
+async function scheduleVisit() {
+  const date = document.getElementById("date").value;
+  const time = selectedSlot;
+
+  if (!date || !time) {
+    alert("Please select date and time.");
+    return;
+  }
+
+  const response = await fetch(`/health/schedule_visit`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ date, time })
+  });
+
+  const result = await response.json();
+
+  if (response.ok) {
+    alert("Visit scheduled successfully.");
+    loadSlots();  // обновим слоты
+  } else {
+    alert("Error: " + result.msg);
+  }
+}
+
+document.getElementById("date").addEventListener("change", loadSlots);
+</script>
+{% endblock %}
